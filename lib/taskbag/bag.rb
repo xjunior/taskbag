@@ -13,8 +13,8 @@ module TaskBag
       end
     end
 
-    def add(business)
-      @tasks << business
+    def add(object)
+      @tasks << object
     end
 
     def close
