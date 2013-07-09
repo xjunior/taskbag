@@ -9,7 +9,7 @@ module TaskBag
       @closed = false
       bag = self
       @threads = nthreads.times.map do |w|
-        Thread.new { task_class.new(bag).start }
+        Thread.new { @task_class.new(bag).start }
       end
     end
 

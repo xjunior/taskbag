@@ -9,10 +9,10 @@ module TaskBag
         task = @bag.next
         (sleep(1) and next) if task.nil?
 
-        self.run
+        self.run(task)
       end
     end
 
-    def run; end
+    def run(task); end
   end
 end
