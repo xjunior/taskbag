@@ -3,6 +3,7 @@ module TaskBag
     def initialize(task_class)
       @tasks = []
       @task_class = task_class
+      @semaphore = Mutex.new
     end
 
     def open(nthreads)
@@ -28,7 +29,9 @@ module TaskBag
     end
 
     def next
-      @tasks.pop
+      @semaphore.synchronize {
+        @tasks.pop
+      }
     end
   end
 end
