@@ -15,7 +15,9 @@ module TaskBag
     end
 
     def add(object)
-      @tasks << object
+      @semaphore.synchronize {
+        @tasks << object
+      }
     end
 
     def close
