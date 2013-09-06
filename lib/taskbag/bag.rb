@@ -3,11 +3,13 @@ require 'thread'
 module TaskBag
   class Bag
     def initialize(jobs=Queue.new)
+      @closed = true
       @jobs = jobs
       @threads = []
     end
 
     def open(nworkers)
+      raise "Bag is already opened!" unless closed?
       @closed = false
       _self = self
       @threads = nworkers.times.map do
@@ -16,6 +18,7 @@ module TaskBag
     end
 
     def close!
+      raise 'Bag is already closed!' if closed?
       loop { break if @jobs.empty? }
       @closed = true
       @threads.each{|t| t.join}

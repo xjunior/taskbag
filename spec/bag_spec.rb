@@ -1,16 +1,21 @@
 require 'spec_helper'
 
 describe TaskBag::Bag do
-	let(:mocked_queue) { double('mocked queue') }
+	let(:mocked_queue) { double('mocked queue', empty?: true) }
 	subject { TaskBag::Bag.new }
 
-	it { should_not be_closed }
+	it { should be_closed }
 
 	describe 'opening a bag' do
 		it 'makes the bag open' do
 			subject.open 0
 			subject.should_not be_closed
 			subject.close!
+		end
+
+		it 'raises an exception if already open' do
+			subject.open 0
+			expect { subject.open(0) }.to raise_error
 		end
 
 		it 'creates the given number of workers in different threads' do
@@ -29,12 +34,18 @@ describe TaskBag::Bag do
 
 		it 'should be closed after' do
 			mocked_queue.should_receive(:empty?).and_return true
+			subject.open 0
 			subject.close!
 			subject.should be_closed
 		end
 
+		it 'raises an exception if already closed' do
+			expect { subject.close! }.to raise_error
+		end
+
 		it 'waits for all jobs to be passed to workers before closing' do
 			mocked_queue.should_receive(:empty?).and_return false, false, true
+			subject.open 0
 			subject.close!
 		end
 
