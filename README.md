@@ -77,4 +77,5 @@ As said before, you can add more tasks as the result of a job, for example, if y
 ## References
 
 [1] http://www.cs.arizona.edu/~greg/mpdbook/glossary.html
+
 [2] http://www.eead.csic.es/compbio/material/programacion_rocks/pics/paral_tareas.pdf
