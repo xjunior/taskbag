@@ -31,7 +31,7 @@ In TaskBag you can actually have different tasks in the same bag.
 
 ### When not to use it
 
-If you don't in the above.
+If you're not in the above situation.
 
 ### How to use it
 
