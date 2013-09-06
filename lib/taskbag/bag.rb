@@ -1,29 +1,28 @@
+require 'thread'
+
 module TaskBag
   class Bag
-    def initialize(task_class)
-      @tasks = []
-      @task_class = task_class
-      @semaphore = Mutex.new
+    def initialize(jobs=Queue.new)
+      @jobs = jobs
+      @threads = []
     end
 
-    def open(nthreads)
+    def open(nworkers)
       @closed = false
-      bag = self
-      @threads = nthreads.times.map do |w|
-        Thread.new { @task_class.new(bag).start }
+      _self = self
+      @threads = nworkers.times.map do
+        Thread.new { Worker.start(_self) }
       end
     end
 
-    def add(object)
-      @semaphore.synchronize {
-        @tasks << object
-      }
-    end
-
-    def close
-      loop { break unless @tasks.any? }
+    def close!
+      loop { break if @jobs.empty? }
       @closed = true
       @threads.each{|t| t.join}
+    end
+
+    def add(object)
+      @jobs.push object
     end
 
     def closed?
@@ -31,9 +30,7 @@ module TaskBag
     end
 
     def next
-      @semaphore.synchronize {
-        @tasks.pop
-      }
+      @jobs.pop unless @jobs.empty?
     end
   end
 end

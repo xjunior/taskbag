@@ -4,15 +4,17 @@ module TaskBag
       @bag = bag
     end
 
-    def start
-      until @bag.closed?
-        task = @bag.next
-        (sleep(1) and next) if task.nil?
-
-        self.run(task)
-      end
+    def self.start(bag)
+      Worker.new(bag).start
     end
 
-    def run(task); end
+    def start
+      until @bag.closed?
+        job = @bag.next
+        (sleep(1) and next) if job.nil?
+
+        job.run
+      end
+    end
   end
 end
