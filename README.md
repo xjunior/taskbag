@@ -1,4 +1,5 @@
 # TaskBag
+[![Gem Version](https://badge.fury.io/rb/taskbag.png)](http://badge.fury.io/rb/taskbag)
 
 A super simple implementation of the Bag-of-Tasks Paradigm [1].
 
