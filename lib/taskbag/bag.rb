@@ -35,5 +35,13 @@ module TaskBag
     def next
       @jobs.pop unless @jobs.empty?
     end
+
+    def self.open(nworkers)
+      Bag.new.tap {|b| b.open(nworkers)}
+    end
+
+    def nworkers
+      @threads.size
+    end
   end
 end
