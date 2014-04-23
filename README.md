@@ -1,5 +1,6 @@
 # TaskBag
 [![Gem Version](https://badge.fury.io/rb/taskbag.png)](http://badge.fury.io/rb/taskbag)
+[![Build Status](https://travis-ci.org/xjunior/taskbag.svg?branch=master)](https://travis-ci.org/xjunior/taskbag)
 
 A super simple implementation of the Bag-of-Tasks Paradigm [1].
 
