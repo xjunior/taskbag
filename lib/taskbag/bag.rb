@@ -27,6 +27,7 @@ module TaskBag
     def add(object)
       @jobs.push object
     end
+    alias :<< :add
 
     def closed?
       !!@closed

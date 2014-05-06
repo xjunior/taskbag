@@ -91,4 +91,10 @@ describe TaskBag::Bag do
     subject.next.should be 2
     subject.next.should be_nil
   end
+
+  it 'accepts << to add new jobs' do
+    subject << 1
+
+    subject.next.should be 1
+  end
 end
